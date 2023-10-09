@@ -1,8 +1,12 @@
 FROM nginx:latest
+
+ENV HOSTNAME my-hostname
+ENV IP_ADDRESS my-ip-address
+
 RUN rm /etc/nginx/conf.d/default.conf
-#######Move config files######
-COPY nginx.conf /etc/nginx/
-COPY default.conf /etc/nginx/conf.d/
-####Open Port 80###########
-EXPOSE 80
-EXPOSE 443
+
+COPY nginx.conf /etc/nginx/conf.d/${HOSTNAME}/
+COPY default.conf /etc/nginx/conf.d/${HOSTNAME}/
+
+EXPOSE 80:${HOSTNAME}
+EXPOSE 443:${HOSTNAME}
